@@ -5,24 +5,21 @@
  */
 package bengkel;
 
-import com.sun.jdi.connect.spi.Connection;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
-/**
- *
- * @author ASUS
- */
+
 public class Koneksi {
     public Connection bukaKoneksi(){
         Connection con = null;
-        try {
+        try{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/dbworkshop","root","");
-            System.out.println("Berhasil Koneksi");
+            System.out.println("Berhasil konek");
             return con;
         } catch (Exception e){
-            System.out.println("Gagal Koneksi"+e.getMessage());
+            System.out.println("Gagal konek"+e.getMessage());
             return con = null;
         }
-        
     }
 }
