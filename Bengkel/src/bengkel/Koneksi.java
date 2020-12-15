@@ -14,7 +14,15 @@ import com.sun.jdi.connect.spi.Connection;
 public class Koneksi {
     public Connection bukaKoneksi(){
         Connection con = null;
-        return null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/dbworkshop","root","");
+            System.out.println("Berhasil Koneksi");
+            return con;
+        } catch (Exception e){
+            System.out.println("Gagal Koneksi"+e.getMessage());
+            return con = null;
+        }
         
     }
 }
