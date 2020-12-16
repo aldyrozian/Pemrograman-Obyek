@@ -5,6 +5,12 @@
  */
 package bengkel;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import static javax.swing.UIManager.getString;
+
 /**
  *
  * @author ASUS
@@ -14,10 +20,70 @@ public class Transaksi extends javax.swing.JFrame {
     /**
      * Creates new form Transaksi
      */
+    Koneksi objKoneksi;
     public Transaksi() {
         initComponents();
+        objKoneksi= new Koneksi();
+        autoNumber();
+        tampilnamasparepart();
     }
-
+    
+    private void autoNumber(){
+        String noService = "SER000";
+        int i =0;
+        try {
+            Connection con = objKoneksi.bukaKoneksi ();
+            Statement st = con.createStatement();
+            String sql = "select no_service from isi";
+            ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    noService = rs.getString("no_service");
+                }
+            noService = noService.substring(3);
+            i = Integer.parseInt(noService)+1;
+            noService = "00"+i;
+            noService = "SER"+noService.substring(noService.length()-3);
+            txtNoService.setText(noService);
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void tampilnamasparepart(){
+        try{
+            Connection con = objKoneksi.bukaKoneksi ();
+            Statement st = con.createStatement();
+            String sql = "select nmsparepart from sparepart order by nmsparepart";
+            ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    cmbsparepart.addItem(rs.getString("nmsparepart"));
+                }
+            con.close();
+            st.close();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void detilsparepart(){
+        String kd_sp="";
+        try{
+            Connection con = objKoneksi.bukaKoneksi ();
+            Statement st = con.createStatement();
+            String sql = "select * from sparepart where nmsparepart ='"+cmbsparepart.getSelectedItem()+"'";
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                txtharga.setText(rs.getString("harga"));
+                kd_sp=rs.getString(kd_sp);
+            }    
+            
+            con.close();
+            st.close();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,15 +98,15 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtNoServis = new javax.swing.JTextField();
-        txtHarga = new javax.swing.JTextField();
+        txtNoService = new javax.swing.JTextField();
+        txtharga = new javax.swing.JTextField();
         txtJumlah = new javax.swing.JTextField();
         btnBuatBaru = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
         btnUbah = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         btnKeluar = new javax.swing.JButton();
-        cmbSparePart = new javax.swing.JComboBox<>();
+        cmbsparepart = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +130,17 @@ public class Transaksi extends javax.swing.JFrame {
         btnHapus.setText("Hapus");
 
         btnKeluar.setText("Keluar");
+        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKeluarActionPerformed(evt);
+            }
+        });
+
+        cmbsparepart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbsparepartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,11 +158,11 @@ public class Transaksi extends javax.swing.JFrame {
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNoServis, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNoService, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBuatBaru))
-                            .addComponent(cmbSparePart, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtHarga)
+                            .addComponent(cmbsparepart, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtharga)
                             .addComponent(txtJumlah)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(121, 121, 121)
@@ -108,16 +185,16 @@ public class Transaksi extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNoServis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNoService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuatBaru))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cmbSparePart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbsparepart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -133,6 +210,16 @@ public class Transaksi extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
+        // TODO add your handling code here:
+     dispose();   
+    }//GEN-LAST:event_btnKeluarActionPerformed
+
+    private void cmbsparepartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbsparepartActionPerformed
+        // TODO add your handling code here:
+        detilsparepart();
+    }//GEN-LAST:event_cmbsparepartActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,14 +262,14 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JButton btnKeluar;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnUbah;
-    private javax.swing.JComboBox<String> cmbSparePart;
+    private javax.swing.JComboBox cmbsparepart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField txtHarga;
     private javax.swing.JTextField txtJumlah;
-    private javax.swing.JTextField txtNoServis;
+    private javax.swing.JTextField txtNoService;
+    private javax.swing.JTextField txtharga;
     // End of variables declaration//GEN-END:variables
 }

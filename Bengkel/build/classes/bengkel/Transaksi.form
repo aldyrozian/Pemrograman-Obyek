@@ -36,12 +36,12 @@
                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="txtNoServis" min="-2" pref="78" max="-2" attributes="0"/>
+                              <Component id="txtNoService" min="-2" pref="78" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnBuatBaru" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="cmbSparePart" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtHarga" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cmbsparepart" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtharga" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtJumlah" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -71,18 +71,18 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNoServis" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNoService" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnBuatBaru" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cmbSparePart" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbsparepart" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtHarga" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtharga" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -130,9 +130,9 @@
         <Property name="text" type="java.lang.String" value="Jumlah"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNoServis">
+    <Component class="javax.swing.JTextField" name="txtNoService">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtHarga">
+    <Component class="javax.swing.JTextField" name="txtharga">
     </Component>
     <Component class="javax.swing.JTextField" name="txtJumlah">
     </Component>
@@ -160,15 +160,21 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Keluar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKeluarActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cmbSparePart">
+    <Component class="javax.swing.JComboBox" name="cmbsparepart">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbsparepartActionPerformed"/>
+      </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
       </AuxValues>
     </Component>
   </SubComponents>
