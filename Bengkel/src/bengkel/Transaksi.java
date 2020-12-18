@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import static javax.swing.UIManager.getString;
 
 /**
@@ -16,17 +17,18 @@ import static javax.swing.UIManager.getString;
  * @author ASUS
  */
 public class Transaksi extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Transaksi
-     */
     Koneksi objKoneksi;
+    private String kd_sp;
     public Transaksi() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Transaksi");
         objKoneksi= new Koneksi();
         autoNumber();
         tampilnamasparepart();
+        inisialisasi();
     }
+    
     
     private void autoNumber(){
         String noService = "SER000";
@@ -79,7 +81,35 @@ public class Transaksi extends javax.swing.JFrame {
             
             con.close();
             st.close();
+            System.out.println(""+kd_sp);
         } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void inisialisasi (){
+        btnTambah.setEnabled(true);
+        btnUbah.setEnabled(false);
+        btnHapus.setEnabled(false);
+    }
+    
+    private void tambahData(){
+        int jml_bayar = 0;
+        jml_bayar = Integer.parseInt(txtharga.getText()) * Integer.parseInt(txtJumlah.getText());
+        
+        try {
+            Connection con = objKoneksi.bukaKoneksi();
+            Statement st = con.createStatement();
+            String sql = "insert into isi values ('"+txtNoService.getText()+"','"+kd_sp+"',"+"'"+txtJumlah.getText()+"','"+jml_bayar+"')";
+            int sukses = st.executeUpdate(sql);
+            if(sukses > 0){
+                JOptionPane.showMessageDialog(rootPane, "Data berhasil di tambah");
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Data gagal di tambah");
+            }
+            con.close();
+            st.close();
+        }catch (SQLException e){
             System.out.println(e.getMessage());
         }
     }
@@ -109,6 +139,7 @@ public class Transaksi extends javax.swing.JFrame {
         cmbsparepart = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Transaksi");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/3.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -124,6 +155,11 @@ public class Transaksi extends javax.swing.JFrame {
         btnBuatBaru.setText("Buat Baru");
 
         btnTambah.setText("Tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
 
         btnUbah.setText("Ubah");
 
@@ -220,6 +256,11 @@ public class Transaksi extends javax.swing.JFrame {
         // TODO add your handling code here:
         detilsparepart();
     }//GEN-LAST:event_cmbsparepartActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        // TODO add your handling code here:
+        tambahData();
+    }//GEN-LAST:event_btnTambahActionPerformed
 
     /**
      * @param args the command line arguments

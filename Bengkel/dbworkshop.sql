@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2020 at 02:15 PM
+-- Generation Time: Dec 18, 2020 at 02:40 PM
 -- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.11
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,8 +41,19 @@ CREATE TABLE `isi` (
 --
 
 CREATE TABLE `sparepart` (
-  `nmsparepart` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nmsparepart` varchar(20) NOT NULL,
+  `kd_sp` varchar(5) NOT NULL,
+  `harga` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sparepart`
+--
+
+INSERT INTO `sparepart` (`nmsparepart`, `kd_sp`, `harga`) VALUES
+('Oli', 'SP001', 10000),
+('Ban Midell', 'SP002', 100000),
+('Knalpot', 'SP003', 50000);
 
 --
 -- Indexes for dumped tables
