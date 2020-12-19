@@ -89,8 +89,8 @@ public class Transaksi extends javax.swing.JFrame {
     
     private void inisialisasi (){
         btnTambah.setEnabled(true);
-        btnUbah.setEnabled(false);
-        btnHapus.setEnabled(false);
+        btnUbah.setEnabled(true);
+        btnHapus.setEnabled(true);
     }
     
     private void tambahData(){
@@ -109,6 +109,69 @@ public class Transaksi extends javax.swing.JFrame {
             }
             con.close();
             st.close();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void caridata(){
+        try{
+            Connection con = objKoneksi.bukaKoneksi ();
+            Statement st = con.createStatement();
+            String sql = "select * from isi where no_service = '"+txtNoService.getText()+"' "+"and kd_sp ='"+kd_sp+"'";
+            ResultSet rs = st.executeQuery(sql);
+            inisialisasi();
+            if(rs.next()){
+                btnUbah.setEnabled(true);
+                btnHapus.setEnabled(true);
+            }else {
+                inisialisasi();
+                btnTambah.setEnabled(true);
+                txtJumlah.setText("");
+            }
+            con.close();
+            st.close();
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void ubahdata(){
+        int jml_bayar = 0;
+        jml_bayar = Integer.parseInt(txtharga.getText()) * Integer.parseInt(txtJumlah.getText());
+        try{
+            Connection con = objKoneksi.bukaKoneksi ();
+            Statement st = con.createStatement();
+            String sql = "update isi set jml_item = '"+txtJumlah.getText()+"', jml_bayar ="+"'"+jml_bayar+"' where no_service = '"+txtNoService.getText()+"' and kd_sp '"+kd_sp+"'";
+            int sukses = st.executeUpdate(sql);
+            if (sukses > 0){
+                JOptionPane.showMessageDialog(rootPane, "Data berhasil diupdate");
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Data tidak berhasil diupdate");
+            }
+            con.close();
+            st.close();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void bersih(){
+        txtJumlah.setText("");
+    }
+    
+    private void hapus(){
+        try{
+            Connection con = objKoneksi.bukaKoneksi ();
+            Statement st = con.createStatement();
+            String sql = "delete from isi where no_service = '"+txtNoService.getText()+"' and kd_sp = '"+kd_sp+"'";
+            int sukses = st.executeUpdate(sql);
+            if (sukses > 0){
+                JOptionPane.showMessageDialog(rootPane, "Data berhasil dihaupus");
+                bersih();inisialisasi();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Data tidak berhasil dihaupus");
+            }
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
@@ -152,6 +215,12 @@ public class Transaksi extends javax.swing.JFrame {
 
         jLabel5.setText("Jumlah");
 
+        txtNoService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNoServiceActionPerformed(evt);
+            }
+        });
+
         btnBuatBaru.setText("Buat Baru");
 
         btnTambah.setText("Tambah");
@@ -162,6 +231,11 @@ public class Transaksi extends javax.swing.JFrame {
         });
 
         btnUbah.setText("Ubah");
+        btnUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUbahActionPerformed(evt);
+            }
+        });
 
         btnHapus.setText("Hapus");
 
@@ -255,12 +329,23 @@ public class Transaksi extends javax.swing.JFrame {
     private void cmbsparepartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbsparepartActionPerformed
         // TODO add your handling code here:
         detilsparepart();
+        caridata();
     }//GEN-LAST:event_cmbsparepartActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
         tambahData();
     }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void txtNoServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNoServiceActionPerformed
+        // TODO add your handling code here:
+        caridata();
+    }//GEN-LAST:event_txtNoServiceActionPerformed
+
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
+        // TODO add your handling code here:
+        ubahdata();
+    }//GEN-LAST:event_btnUbahActionPerformed
 
     /**
      * @param args the command line arguments

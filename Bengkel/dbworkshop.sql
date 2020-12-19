@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2020 at 02:40 PM
+-- Generation Time: Dec 19, 2020 at 08:21 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -28,11 +28,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `isi` (
-  `no_service` int(10) NOT NULL,
+  `no_service` char(10) NOT NULL,
   `sparepart` varchar(20) NOT NULL,
   `harga` varchar(10) NOT NULL,
   `jumlah` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `isi`
+--
+
+INSERT INTO `isi` (`no_service`, `sparepart`, `harga`, `jumlah`) VALUES
+('SER001', 'null', '5', '50000'),
+('SER002', 'null', '1', '100000');
 
 -- --------------------------------------------------------
 
@@ -64,16 +72,6 @@ INSERT INTO `sparepart` (`nmsparepart`, `kd_sp`, `harga`) VALUES
 --
 ALTER TABLE `isi`
   ADD PRIMARY KEY (`no_service`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `isi`
---
-ALTER TABLE `isi`
-  MODIFY `no_service` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
