@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2020 at 03:34 AM
+-- Generation Time: Dec 20, 2020 at 04:18 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -28,20 +28,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `isi` (
-  `no_services` varchar(10) NOT NULL,
-  `kd_sp` int(20) NOT NULL,
-  `nm_sp` varchar(20) NOT NULL,
-  `jml_item` varchar(30) NOT NULL,
-  `harga` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `no_services` varchar(20) NOT NULL,
+  `kd_sp` int(10) NOT NULL,
+  `jml_item` int(10) NOT NULL,
+  `discount` int(10) NOT NULL,
+  `jml_bayar` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `isi`
 --
 
-INSERT INTO `isi` (`no_services`, `kd_sp`, `nm_sp`, `jml_item`, `harga`) VALUES
-('SER001', 2, '2', '5', '228000'),
-('SER002', 2, '3', '10', '324000');
+INSERT INTO `isi` (`no_services`, `kd_sp`, `jml_item`, `discount`, `jml_bayar`) VALUES
+('SER001', 1, 1, 5, 38000),
+('SER002', 2, 1, 5, 57000);
 
 -- --------------------------------------------------------
 
@@ -50,9 +50,9 @@ INSERT INTO `isi` (`no_services`, `kd_sp`, `nm_sp`, `jml_item`, `harga`) VALUES
 --
 
 CREATE TABLE `spareparts` (
-  `kd_sp` int(20) NOT NULL,
-  `nm_sp` varchar(30) NOT NULL,
-  `harga` int(30) NOT NULL
+  `kd_sp` int(10) NOT NULL,
+  `nm_sp` varchar(20) NOT NULL,
+  `harga` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -60,8 +60,8 @@ CREATE TABLE `spareparts` (
 --
 
 INSERT INTO `spareparts` (`kd_sp`, `nm_sp`, `harga`) VALUES
-(1, 'Oli', 60000),
-(2, 'Ban', 120000);
+(1, 'Ban', 40000),
+(2, 'Oli', 60000);
 
 --
 -- Indexes for dumped tables
