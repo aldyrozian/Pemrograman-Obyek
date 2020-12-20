@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2020 at 04:18 AM
+-- Generation Time: Dec 20, 2020 at 05:15 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `isi` (
   `no_services` varchar(20) NOT NULL,
-  `kd_sp` int(10) NOT NULL,
-  `jml_item` int(10) NOT NULL,
-  `discount` int(10) NOT NULL,
-  `jml_bayar` int(10) NOT NULL
+  `kd_sp` varchar(20) NOT NULL,
+  `jml_item` int(20) NOT NULL,
+  `discount` int(20) NOT NULL,
+  `jml_bayar` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -40,8 +40,10 @@ CREATE TABLE `isi` (
 --
 
 INSERT INTO `isi` (`no_services`, `kd_sp`, `jml_item`, `discount`, `jml_bayar`) VALUES
-('SER001', 1, 1, 5, 38000),
-('SER002', 2, 1, 5, 57000);
+('SER001', 'SP002', 2, 5, 76000),
+('SER002', 'SP002', 2, 5, 76000),
+('SER003', 'SP002', 3, 5, 114000),
+('SER004', 'SP002', 4, 5, 152000);
 
 -- --------------------------------------------------------
 
@@ -50,7 +52,7 @@ INSERT INTO `isi` (`no_services`, `kd_sp`, `jml_item`, `discount`, `jml_bayar`) 
 --
 
 CREATE TABLE `spareparts` (
-  `kd_sp` int(10) NOT NULL,
+  `kd_sp` varchar(20) NOT NULL,
   `nm_sp` varchar(20) NOT NULL,
   `harga` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -60,8 +62,11 @@ CREATE TABLE `spareparts` (
 --
 
 INSERT INTO `spareparts` (`kd_sp`, `nm_sp`, `harga`) VALUES
-(1, 'Ban', 40000),
-(2, 'Oli', 60000);
+('SP001', 'Oli', 60000),
+('SP002', 'Ban', 40000),
+('SP003', 'Busi', 50000),
+('SP004', 'Kampas Rem Belakang', 20000),
+('SP005', 'Rem Kampas Atas', 20000);
 
 --
 -- Indexes for dumped tables
@@ -71,24 +76,13 @@ INSERT INTO `spareparts` (`kd_sp`, `nm_sp`, `harga`) VALUES
 -- Indexes for table `isi`
 --
 ALTER TABLE `isi`
-  ADD PRIMARY KEY (`no_services`),
-  ADD KEY `kd_sp` (`kd_sp`);
+  ADD PRIMARY KEY (`no_services`);
 
 --
 -- Indexes for table `spareparts`
 --
 ALTER TABLE `spareparts`
   ADD PRIMARY KEY (`kd_sp`);
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `isi`
---
-ALTER TABLE `isi`
-  ADD CONSTRAINT `isi_ibfk_1` FOREIGN KEY (`kd_sp`) REFERENCES `spareparts` (`kd_sp`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

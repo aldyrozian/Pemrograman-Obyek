@@ -165,7 +165,7 @@ public class Transaksi extends javax.swing.JDialog {
         try {
             Connection con = objKoneksi.bukaKoneksi();
             Statement st = con.createStatement();
-            String sql = "update isi set get jml_item = '"+txtJumlah.getText()+"', discount = '"+discount+"', jml_bayar = "
+            String sql = "update isi set jml_item = '"+txtJumlah.getText()+"', discount = '"+discount+"', jml_bayar = "
                     + "'"+jml_bayar+"' where no_services = '"+txtNoServices.getText()+"' and kd_sp = '"+kd_sp+"'";
             int sukses = st.executeUpdate(sql);
                 if(sukses > 0){
@@ -292,6 +292,11 @@ public class Transaksi extends javax.swing.JDialog {
         });
 
         btnKeluar.setText("Keluar");
+        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKeluarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -412,6 +417,11 @@ public class Transaksi extends javax.swing.JDialog {
         bersih();
         inisialisasi();
     }//GEN-LAST:event_btnBuatBaruActionPerformed
+
+    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnKeluarActionPerformed
 
     /**
      * @param args the command line arguments
