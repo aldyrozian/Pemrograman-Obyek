@@ -231,7 +231,7 @@ public class Transaksi extends javax.swing.JDialog {
     public void tampiltabel(){
         DefaultTableModel tb = new DefaultTableModel();
         tb.addColumn("No. Service");
-        tb.addColumn("Sparepart");
+        tb.addColumn("Umur Kendaraan");
         tb.addColumn("discount");
         tb.addColumn("Jumlah bayar");
          try{
