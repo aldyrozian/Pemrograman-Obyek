@@ -28,6 +28,8 @@ public class Gmaik extends javax.swing.JFrame {
      */
     public Gmaik() {
         initComponents();
+        setVisible(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -47,71 +49,49 @@ public class Gmaik extends javax.swing.JFrame {
         isi = new javax.swing.JTextArea();
         btn_kirim = new javax.swing.JButton();
         btn_bersihkan = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Kirim Kepada");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Subjek");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, 30));
+        getContentPane().add(penerima, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 25, 238, -1));
+        getContentPane().add(subjek, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 71, 238, -1));
 
         isi.setColumns(20);
         isi.setRows(5);
         jScrollPane1.setViewportView(isi);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 111, -1, -1));
+
+        btn_kirim.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         btn_kirim.setText("Kirim");
         btn_kirim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_kirimActionPerformed(evt);
             }
         });
+        getContentPane().add(btn_kirim, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 215, -1, -1));
 
+        btn_bersihkan.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         btn_bersihkan.setText("Bersihkan");
         btn_bersihkan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_bersihkanActionPerformed(evt);
             }
         });
+        getContentPane().add(btn_bersihkan, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 215, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_kirim)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_bersihkan))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1)
-                        .addComponent(subjek)
-                        .addComponent(penerima)))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(penerima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(subjek, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_kirim)
-                    .addComponent(btn_bersihkan))
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\haika\\OneDrive\\Desktop\\abstract-blue-geometric-shapes-background_1035-17545.jpg")); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -121,9 +101,9 @@ public class Gmaik extends javax.swing.JFrame {
         try {
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
-     props.put("mail.smtp.starttls.enable", "true");
-     props.put("mail.smtp.host", "smtp.gmail.com");
-     props.put("mail.smtp.port", "587");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
 
             Session session = Session.getInstance(props, new EmailAuth());
             Message pesan = new MimeMessage(session);
@@ -192,6 +172,7 @@ public class Gmaik extends javax.swing.JFrame {
     private javax.swing.JTextArea isi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField penerima;
     private javax.swing.JTextField subjek;

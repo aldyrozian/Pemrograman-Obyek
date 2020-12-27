@@ -5,7 +5,6 @@
  */
 package bengkels;
 
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +28,11 @@ public class Transaksi extends javax.swing.JDialog {
         tampilNamaSpareParts();
         inisialisasi();
         tampiltabel();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
+
+
+
      private void autoNumber(){
         String noServices = "SER000";
         int i =0;
@@ -126,7 +129,7 @@ public class Transaksi extends javax.swing.JDialog {
         try {
             Connection con = objKoneksi.bukaKoneksi();
             Statement st = con.createStatement();
-            String sql = "insert into isi values('"+txtNoServices.getText()+"','"+nm_sp+"',"+ "'"+txtJumlah.getText()+"','"+discount+"','"+jml_bayar+"')";
+            String sql = "insert into isi values('"+txtNoServices.getText()+"','"+nm_sp+"',"+ "'"+txtJumlah.getText()+"','"+discount+"','"+jml_bayar+"','"+txtEmail.getText()+"')";
             int sukses = st.executeUpdate(sql);
             if(sukses > 0){
                 JOptionPane.showMessageDialog(rootPane, "Data Berhasil di Tambahkan");
@@ -234,6 +237,7 @@ public class Transaksi extends javax.swing.JDialog {
         tb.addColumn("Umur Kendaraan");
         tb.addColumn("discount");
         tb.addColumn("Jumlah bayar");
+        tb.addColumn("Email");
          try{
             String sql = "select * from isi";
             java.sql.Connection conn=(Connection)objKoneksi.bukaKoneksi();
@@ -241,7 +245,7 @@ public class Transaksi extends javax.swing.JDialog {
             java.sql.ResultSet res = stm.executeQuery(sql);
             
             while(res.next()){
-                tb.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(4),res.getString(5)});
+                tb.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(4),res.getString(5),res.getString(6)});
             }
             jTable1.setModel(tb);
         }catch (SQLException e){
@@ -276,29 +280,36 @@ public class Transaksi extends javax.swing.JDialog {
         btnTambah = new javax.swing.JButton();
         btnUbah = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
-        btnKeluar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         rincian = new javax.swing.JTextArea();
+        jLabel8 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/3.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 33, -1, -1));
 
         txtNoServices.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNoServicesActionPerformed(evt);
             }
         });
+        getContentPane().add(txtNoServices, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 238, 102, -1));
 
+        btnBuatBaru.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         btnBuatBaru.setText("Buat Baru");
         btnBuatBaru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuatBaruActionPerformed(evt);
             }
         });
+        getContentPane().add(btnBuatBaru, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 238, -1, -1));
 
         cmbSpareParts.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -310,56 +321,82 @@ public class Transaksi extends javax.swing.JDialog {
                 cmbSparePartsActionPerformed(evt);
             }
         });
+        getContentPane().add(cmbSpareParts, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 278, 148, -1));
 
+        jLabel2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("No. Service");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 244, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Umur Kendaraan");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 283, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Harga");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 322, -1, -1));
+        getContentPane().add(txtHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 316, 210, -1));
 
         txtJumlah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtJumlahActionPerformed(evt);
             }
         });
+        getContentPane().add(txtJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 363, 210, -1));
 
+        jLabel5.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Jumlah Perbaikan");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 369, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Discount");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 410, -1, -1));
 
+        rb5.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        rb5.setForeground(new java.awt.Color(0, 0, 0));
         rb5.setText("5%");
+        getContentPane().add(rb5, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 409, -1, -1));
 
+        rb10.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        rb10.setForeground(new java.awt.Color(0, 0, 0));
         rb10.setText("10%");
+        getContentPane().add(rb10, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 409, -1, -1));
 
+        rb15.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        rb15.setForeground(new java.awt.Color(0, 0, 0));
         rb15.setText("15%");
+        getContentPane().add(rb15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 409, -1, -1));
 
+        btnTambah.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         btnTambah.setText("Tambah");
         btnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTambahActionPerformed(evt);
             }
         });
+        getContentPane().add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 439, -1, -1));
 
+        btnUbah.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         btnUbah.setText("Ubah");
         btnUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUbahActionPerformed(evt);
             }
         });
+        getContentPane().add(btnUbah, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 439, -1, -1));
 
+        btnHapus.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         btnHapus.setText("Hapus");
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusActionPerformed(evt);
             }
         });
-
-        btnKeluar.setText("Keluar");
-        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKeluarActionPerformed(evt);
-            }
-        });
+        getContentPane().add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 439, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -390,10 +427,10 @@ public class Transaksi extends javax.swing.JDialog {
             }
         ));
         jTable1.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jTable1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -405,110 +442,27 @@ public class Transaksi extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel7.setFont(new java.awt.Font("Alien Encounters", 3, 14)); // NOI18N
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 479, 597, 377));
+
+        jLabel7.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Segera cek disini dan perbaiki motor anda");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, -1, 30));
 
         rincian.setColumns(20);
         rincian.setRows(5);
         jScrollPane3.setViewportView(rincian);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addGap(45, 45, 45))
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(rb5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rb10)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rb15))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtNoServices, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(btnBuatBaru))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtJumlah, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtHarga, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
-                                    .addComponent(cmbSpareParts, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnTambah)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnUbah)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnHapus)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnKeluar)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel7)))
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNoServices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuatBaru)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(cmbSpareParts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(rb5)
-                            .addComponent(rb10)
-                            .addComponent(rb15))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnTambah)
-                            .addComponent(btnUbah)
-                            .addComponent(btnHapus)
-                            .addComponent(btnKeluar))
-                        .addGap(0, 3, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(385, 238, -1, 229));
+
+        jLabel8.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Email");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 204, -1, -1));
+        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 198, 210, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/gears-5193383.png"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 860));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -549,11 +503,6 @@ public class Transaksi extends javax.swing.JDialog {
         inisialisasi();
     }//GEN-LAST:event_btnBuatBaruActionPerformed
 
-    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_btnKeluarActionPerformed
-
     private void jTable1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable1AncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_jTable1AncestorAdded
@@ -567,9 +516,11 @@ public class Transaksi extends javax.swing.JDialog {
         String SpareParts = jTable1.getValueAt(baris, 1).toString();
         cmbSpareParts.setSelectedItem(SpareParts);
         
-        String jumlah = jTable1.getValueAt(baris, 4).toString();
-        txtJumlah.setText(jumlah);
+       // String jumlah = jTable1.getValueAt(baris, 3).toString();
+       // txtJumlah.setText(jumlah);
         
+        String Email = jTable1.getValueAt(baris, 4).toString();
+        txtEmail.setText(Email);
 
 
     }//GEN-LAST:event_jTable1MouseClicked
@@ -629,7 +580,6 @@ public class Transaksi extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuatBaru;
     private javax.swing.JButton btnHapus;
-    private javax.swing.JButton btnKeluar;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnUbah;
     private javax.swing.JComboBox<String> cmbSpareParts;
@@ -640,6 +590,8 @@ public class Transaksi extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
@@ -647,6 +599,7 @@ public class Transaksi extends javax.swing.JDialog {
     private javax.swing.JRadioButton rb15;
     private javax.swing.JRadioButton rb5;
     private javax.swing.JTextArea rincian;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtHarga;
     private javax.swing.JTextField txtJumlah;
     private javax.swing.JTextField txtNoServices;
